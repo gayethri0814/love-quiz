@@ -1,109 +1,143 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Gayathri’s Love & Future Test 💖</title>
+<title>Gayathri’s Forever Test 💖</title>
 <style>
 body{
-background:linear-gradient(to right,#ffdde1,#ee9ca7);
+margin:0;
 font-family:Arial;
+background:linear-gradient(to right,#ff9a9e,#fad0c4);
 text-align:center;
-padding:20px;
+color:#333;
 }
 .container{
 background:white;
-padding:25px;
+padding:20px;
 border-radius:15px;
 max-width:750px;
-margin:auto;
+margin:40px auto;
 box-shadow:0 0 20px rgba(0,0,0,0.2);
 }
 button{
-display:block;
-margin:15px auto;
-padding:12px 20px;
+padding:10px 20px;
+margin:10px;
 border:none;
 border-radius:10px;
-font-size:16px;
-cursor:pointer;
 background:#ff4d6d;
 color:white;
+font-size:15px;
+cursor:pointer;
 }
 button:hover{
 background:#e60039;
+}
+.hidden{display:none;}
+#proposal{
+font-size:22px;
+color:#e60039;
+animation:fadeIn 2s ease-in-out infinite alternate;
+}
+@keyframes fadeIn{
+from{opacity:0.4;}
+to{opacity:1;}
 }
 </style>
 </head>
 <body>
 
-<div class="container">
-<h2>Gayathri’s Ultimate Love & Marriage Quiz 😘💍</h2>
+<audio id="bgMusic" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="loginBox">
+<h2>Enter Password to Access Gayathri’s Heart 🔐💖</h2>
+<input type="password" id="password" placeholder="Enter Password">
+<br><br>
+<button onclick="checkPassword()">Unlock 💕</button>
+<p id="wrongPass"></p>
+</div>
+
+<div class="container hidden" id="quizBox">
+<h2>Gayathri’s Ultimate Forever Quiz 💍</h2>
 <div id="quiz"></div>
 <button onclick="submitQuiz()">Submit Answers 💌</button>
 <p id="result"></p>
+<p id="proposal" class="hidden">💍 WILL YOU BE MY FOREVER PERSON? ❤️</p>
 </div>
 
 <script>
 
-const questions = [
-"What motivates you to get married?",
-"How do you resolve serious conflicts?",
-"What do you expect from me as your partner?",
-"Do you believe love alone is enough for marriage?",
-"What role should parents/in-laws play in our life?",
-"What lifestyle do you dream of?",
-"Where do you want to live long term?",
-"What is one thing you will never compromise on?",
-"How do you handle stress?",
-"When you feel misunderstood, what do you need?",
-"How do we fix things after fights?",
-"How should we manage money?",
-"What are your biggest fears about marriage?",
+// 🔐 PASSWORD (You can change this)
+const correctPassword = "ilovegayathri";
+
+function checkPassword(){
+let entered=document.getElementById("password").value;
+if(entered===correctPassword){
+document.getElementById("loginBox").classList.add("hidden");
+document.getElementById("quizBox").classList.remove("hidden");
+document.getElementById("bgMusic").play();
+}else{
+document.getElementById("wrongPass").innerHTML="Wrong password 😏 Try again!";
+}
+}
+
+const questions=[
+"What motivates you to marry me?",
+"How do you solve serious fights?",
+"What matters most in marriage?",
 "What does loyalty mean to you?",
-"If one of us fails in career, what should happen?",
-"How important is physical affection to you?",
-"What kind of parent do you want to be?",
-"Work balance after kids?",
-"What makes you feel emotionally safe?",
-"What would make you walk away from a relationship?"
+"What would make you walk away?",
+"How should we manage money?",
+"What kind of parent will you be?",
+"How do you handle stress?",
+"Do you believe love alone is enough?",
+"How do we fix things when not okay?"
 ];
 
-const options = [
-["Because of you ❤️","Family & stability 👨‍👩‍👧","Society pressure 😂"],
-["Talk calmly 🧘","Take space then solve 🤝","Ignore until it disappears 😅"],
-["Respect & loyalty 🤍","Unconditional love 💕","Patience for my drama 😂"],
-["Yes fully 💖","No, effort & respect matter too 💪","Depends on mood 😜"],
-["Healthy boundaries 🏡","Daily involvement 👨‍👩‍👧","Only during festivals 😂"],
-["Peaceful & stable 🌿","Travel & adventure ✈️","Luxury rich life 💎"],
-["Near family 🏠","Abroad 🌍","Wherever you are ❤️"],
-["Self respect 🤍","Career goals 💼","My sleep time 😴"],
-["Stay silent 🤐","Overthink 100x 😅","Gym & music therapy 🎧"],
-["Reassurance 🤗","Tight hug 🫂","Just listen quietly ❤️"],
-["Talk it out 🗣️","Cry then hug 😢🤗","Send memes until okay 😂"],
-["Joint planning 💰","Shared but independent 🏦","You handle it 😜"],
-["Losing freedom 😬","Financial pressure 💸","Nothing I’m fearless 😎"],
-["No secrets ever 🔐","Standing by each other ❤️","Not flirting obviously 😏"],
-["Support & motivate 💪","Stand stronger together ❤️","Blame each other 😂"],
-["Very important 💞","Important but balanced ❤️","Depends on mood 😅"],
-["Calm & loving parent 🤗","Strict but fair 👨‍👩‍👧","Best friend parent 😎"],
-["Both work hard 💼","One steps back 👶","Become rich first 💰"],
-["Consistency ❤️","Feeling heard 🗣️","Daily hugs 🫂"],
-["Disrespect 🚫","Cheating ❌","Lack of effort 😔"]
+const options=[
+["Because I love you ❤️","Family stability 👨‍👩‍👧","Free food 😂"],
+["Talk calmly 🤝","Ignore 😅","Shout then regret 😂"],
+["Respect & trust 🤍","Romance only 😘","Ego 😏"],
+["No secrets 🔐","Flirting allowed 😜","Depends 😬"],
+["Disrespect 🚫","Cheating ❌","Nothing I’m perfect 😎"],
+["Joint planning 💰","You handle it 😅","Spend freely 😂"],
+["Loving & patient 🤗","Strict only 😤","Best friend parent 😎"],
+["Communicate 🗣️","Silent mode 🤐","Overthink 100x 😅"],
+["Yes but effort matters 💖","Yes only love enough 😍","Not sure 😬"],
+["Talk & hug 🤗","Sleep & forget 😴","Memes until fine 😂"]
 ];
 
-let quizDiv = document.getElementById("quiz");
-
+let quizDiv=document.getElementById("quiz");
 questions.forEach((q,i)=>{
 let div=document.createElement("div");
 div.innerHTML="<p><b>"+q+"</b></p>";
-options[i].forEach(opt=>{
-div.innerHTML+=`<label><input type="radio" name="q${i}"> ${opt}</label><br>`;
+options[i].forEach((opt,j)=>{
+div.innerHTML+=`<label>
+<input type="radio" name="q${i}" value="${j}"> ${opt}
+</label><br>`;
 });
 quizDiv.appendChild(div);
 });
 
 function submitQuiz(){
-document.getElementById("result").innerHTML=
-"Result: If you answered sincerely… you might just be Gayathri’s forever person 😘💍❤️";
+let score=0;
+for(let i=0;i<questions.length;i++){
+let selected=document.querySelector(`input[name="q${i}"]:checked`);
+if(selected && selected.value=="0"){ 
+score++; 
+}
+}
+
+let result=document.getElementById("result");
+let proposal=document.getElementById("proposal");
+
+if(score>=7){
+result.innerHTML="Score: "+score+"/10 ❤️ You passed! You deserve Gayathri forever 😘";
+proposal.classList.remove("hidden");
+}else{
+result.innerHTML="Score: "+score+"/10 😂 Hmm… we need serious discussion mister!";
+proposal.classList.add("hidden");
+}
 }
 
 </script>
