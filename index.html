@@ -68,7 +68,7 @@ to{opacity:1;}
 <script>
 
 // 🔐 PASSWORD (You can change this)
-const correctPassword = "ilovegayathri";
+const correctPassword = "iloveugaye";
 
 function checkPassword(){
 let entered=document.getElementById("password").value;
@@ -81,31 +81,62 @@ document.getElementById("wrongPass").innerHTML="Wrong password 😏 Try again!";
 }
 }
 
-const questions=[
-"What motivates you to marry me?",
-"How do you solve serious fights?",
-"What matters most in marriage?",
-"What does loyalty mean to you?",
-"What would make you walk away?",
-"How should we manage money?",
-"What kind of parent will you be?",
-"How do you handle stress?",
-"Do you believe love alone is enough?",
-"How do we fix things when not okay?"
+const questions = [
+"1. Who was interested first?",
+"2. Who said I love you first?",
+"3. Who is more romantic?",
+"4. Who acts childish?",
+"5. Who gets angry first & how do we fix it?",
+"6. Who eats more?",
+"7. How often should intimacy happen?",
+"8. Who is the emotional one?",
+"9. Who is the safest place?",
+"10. Who wins arguments?",
+"11. What motivates you to get married?",
+"12. How do you resolve serious issues?",
+"13. What do you expect from me?",
+"14. Baby first or full family dream?",
+"15. What kind of parent do you want to be?",
+"16. Work balance after kids?",
+"17. Role of parents/in-laws?",
+"18. Dream lifestyle?",
+"19. Where do we want to live?",
+"20. One non-compromise in marriage?",
+"21. How do you handle stress?",
+"22. When you feel unseen, what do you need?",
+"23. Is love alone enough?",
+"24. Freedom vs commitment?",
+"25. How do we fix fights?"
 ];
 
-const options=[
-["Because I love you ❤️","Family stability 👨‍👩‍👧","Free food 😂"],
-["Talk calmly 🤝","Ignore 😅","Shout then regret 😂"],
-["Respect & trust 🤍","Romance only 😘","Ego 😏"],
-["No secrets 🔐","Flirting allowed 😜","Depends 😬"],
-["Disrespect 🚫","Cheating ❌","Nothing I’m perfect 😎"],
-["Joint planning 💰","You handle it 😅","Spend freely 😂"],
-["Loving & patient 🤗","Strict only 😤","Best friend parent 😎"],
+const options = [
+["You secretly 😏","Me dramatic entry 😘","It was destiny 💫"],
+["You 😌","Me obviously 😎","We both same time 😂"],
+["You filmy hero 💕","Me queen of romance 👑","Both equally cute 😍"],
+["You baby mode 🍼","Me sometimes 🙈","Both when hungry 😂"],
+["You first 😤","Me first 😌","Talk & hug it out 🤗"],
+["You nonstop eating 😋","Me secretly more 🍕","Food wins always 😂"],
+["Everyday romantic vibes 💕","Quality > quantity ❤️","Whenever mood hits 😜"],
+["You cry first 😢","Me overthink queen 😅","Both sensitive souls ❤️"],
+["You are my home 🏡","I am your peace 💞","We are each other’s safe space 🤍"],
+["You loud win 😤","Me silent win 😌","No one…we hug it out 🤗"],
+["Because of you ❤️","Family stability 👨‍👩‍👧","Free food at wedding 😂"],
+["Talk calmly 🧘","Take space then solve 🤝","Argument → hug 🤗"],
+["Loyalty ❤️","Unlimited love 💖","Patience for my drama 😂"],
+["Baby first 👶","Big family chaos 😍","Let’s adopt 10 dogs 🐶"],
+["Cool parent 😎","Strict but loving ❤️","Best friend parent 🤗"],
+["Both work hard 💼","One steps back 👶","Become rich first 💰"],
+["Healthy distance 🏡","Daily involvement 👨‍👩‍👧","Only when needed 🤝"],
+["Quiet peaceful 🌿","Travel adventure ✈️","Luxury rich life 💎"],
+["Near family 🏠","Abroad dream 🌍","Wherever you are 💕"],
+["Self respect 🤍","Career goals 💼","My sleep time 😴"],
 ["Communicate 🗣️","Silent mode 🤐","Overthink 100x 😅"],
+["Reassurance 🤗","Tight hug 🫂","Just listen quietly ❤️"],
 ["Yes but effort matters 💖","Yes only love enough 😍","Not sure 😬"],
-["Talk & hug 🤗","Sleep & forget 😴","Memes until fine 😂"]
+["Balance both ⚖️","Full commitment ❤️","Freedom with loyalty 🕊️"],
+["Talk it out 🗣️","Cry then hug 😢🤗","Send memes until okay 😂"]
 ];
+
 
 let quizDiv=document.getElementById("quiz");
 questions.forEach((q,i)=>{
