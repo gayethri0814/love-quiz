@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Gayathri’s Forever Test 💖</title>
+<title>Gayathri’s Forever Quiz 💖</title>
+
 <style>
 body{
 margin:0;
 font-family:Arial;
 background:linear-gradient(to right,#ff9a9e,#fad0c4);
 text-align:center;
-color:#333;
 }
+
 .container{
 background:white;
-padding:20px;
+padding:25px;
 border-radius:15px;
-max-width:750px;
+max-width:800px;
 margin:40px auto;
 box-shadow:0 0 20px rgba(0,0,0,0.2);
 }
+
 button{
 padding:10px 20px;
-margin:10px;
+margin:15px;
 border:none;
 border-radius:10px;
 background:#ff4d6d;
@@ -28,21 +30,54 @@ color:white;
 font-size:15px;
 cursor:pointer;
 }
+
 button:hover{
 background:#e60039;
 }
+
 .hidden{display:none;}
+
+.progress{
+width:100%;
+background:#ffe6ea;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.progress-bar{
+height:15px;
+width:0%;
+background:#ff4d6d;
+border-radius:10px;
+transition:0.4s;
+}
+
+.heart{
+position:fixed;
+bottom:-10px;
+font-size:20px;
+animation:floatUp 6s linear infinite;
+color:#ff4d6d;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(0); opacity:1;}
+100%{transform:translateY(-800px); opacity:0;}
+}
+
 #proposal{
 font-size:22px;
 color:#e60039;
-animation:fadeIn 2s ease-in-out infinite alternate;
+animation:fade 1.5s infinite alternate;
 }
-@keyframes fadeIn{
-from{opacity:0.4;}
+
+@keyframes fade{
+from{opacity:0.5;}
 to{opacity:1;}
 }
 </style>
 </head>
+
 <body>
 
 <audio id="bgMusic" loop>
@@ -50,128 +85,8 @@ to{opacity:1;}
 </audio>
 
 <div class="container" id="loginBox">
-<h2>Enter Password to Access Gayathri’s Heart 🔐💖</h2>
+<h2>Enter Password to Unlock Gayathri’s Heart 🔐💖</h2>
 <input type="password" id="password" placeholder="Enter Password">
 <br><br>
 <button onclick="checkPassword()">Unlock 💕</button>
-<p id="wrongPass"></p>
-</div>
-
-<div class="container hidden" id="quizBox">
-<h2>Gayathri’s Ultimate Forever Quiz 💍</h2>
-<div id="quiz"></div>
-<button onclick="submitQuiz()">Submit Answers 💌</button>
-<p id="result"></p>
-<p id="proposal" class="hidden">💍 WILL YOU BE MY FOREVER PERSON? ❤️</p>
-</div>
-
-<script>
-
-// 🔐 PASSWORD (You can change this)
-const correctPassword = "iloveugaye";
-
-function checkPassword(){
-let entered=document.getElementById("password").value;
-if(entered===correctPassword){
-document.getElementById("loginBox").classList.add("hidden");
-document.getElementById("quizBox").classList.remove("hidden");
-document.getElementById("bgMusic").play();
-}else{
-document.getElementById("wrongPass").innerHTML="Wrong password 😏 Try again!";
-}
-}
-
-const questions = [
-"1. Who was interested first?",
-"2. Who said I love you first?",
-"3. Who is more romantic?",
-"4. Who acts childish?",
-"5. Who gets angry first & how do we fix it?",
-"6. Who eats more?",
-"7. How often should intimacy happen?",
-"8. Who is the emotional one?",
-"9. Who is the safest place?",
-"10. Who wins arguments?",
-"11. What motivates you to get married?",
-"12. How do you resolve serious issues?",
-"13. What do you expect from me?",
-"14. Baby first or full family dream?",
-"15. What kind of parent do you want to be?",
-"16. Work balance after kids?",
-"17. Role of parents/in-laws?",
-"18. Dream lifestyle?",
-"19. Where do we want to live?",
-"20. One non-compromise in marriage?",
-"21. How do you handle stress?",
-"22. When you feel unseen, what do you need?",
-"23. Is love alone enough?",
-"24. Freedom vs commitment?",
-"25. How do we fix fights?"
-];
-
-const options = [
-["You secretly 😏","Me dramatic entry 😘","It was destiny 💫"],
-["You 😌","Me obviously 😎","We both same time 😂"],
-["You filmy hero 💕","Me queen of romance 👑","Both equally cute 😍"],
-["You baby mode 🍼","Me sometimes 🙈","Both when hungry 😂"],
-["You first 😤","Me first 😌","Talk & hug it out 🤗"],
-["You nonstop eating 😋","Me secretly more 🍕","Food wins always 😂"],
-["Everyday romantic vibes 💕","Quality > quantity ❤️","Whenever mood hits 😜"],
-["You cry first 😢","Me overthink queen 😅","Both sensitive souls ❤️"],
-["You are my home 🏡","I am your peace 💞","We are each other’s safe space 🤍"],
-["You loud win 😤","Me silent win 😌","No one…we hug it out 🤗"],
-["Because of you ❤️","Family stability 👨‍👩‍👧","Free food at wedding 😂"],
-["Talk calmly 🧘","Take space then solve 🤝","Argument → hug 🤗"],
-["Loyalty ❤️","Unlimited love 💖","Patience for my drama 😂"],
-["Baby first 👶","Big family chaos 😍","Let’s adopt 10 dogs 🐶"],
-["Cool parent 😎","Strict but loving ❤️","Best friend parent 🤗"],
-["Both work hard 💼","One steps back 👶","Become rich first 💰"],
-["Healthy distance 🏡","Daily involvement 👨‍👩‍👧","Only when needed 🤝"],
-["Quiet peaceful 🌿","Travel adventure ✈️","Luxury rich life 💎"],
-["Near family 🏠","Abroad dream 🌍","Wherever you are 💕"],
-["Self respect 🤍","Career goals 💼","My sleep time 😴"],
-["Communicate 🗣️","Silent mode 🤐","Overthink 100x 😅"],
-["Reassurance 🤗","Tight hug 🫂","Just listen quietly ❤️"],
-["Yes but effort matters 💖","Yes only love enough 😍","Not sure 😬"],
-["Balance both ⚖️","Full commitment ❤️","Freedom with loyalty 🕊️"],
-["Talk it out 🗣️","Cry then hug 😢🤗","Send memes until okay 😂"]
-];
-
-
-let quizDiv=document.getElementById("quiz");
-questions.forEach((q,i)=>{
-let div=document.createElement("div");
-div.innerHTML="<p><b>"+q+"</b></p>";
-options[i].forEach((opt,j)=>{
-div.innerHTML+=`<label>
-<input type="radio" name="q${i}" value="${j}"> ${opt}
-</label><br>`;
-});
-quizDiv.appendChild(div);
-});
-
-function submitQuiz(){
-let score=0;
-for(let i=0;i<questions.length;i++){
-let selected=document.querySelector(`input[name="q${i}"]:checked`);
-if(selected && selected.value=="0"){ 
-score++; 
-}
-}
-
-let result=document.getElementById("result");
-let proposal=document.getElementById("proposal");
-
-if(score>=7){
-result.innerHTML="Score: "+score+"/10 ❤️ You passed! You deserve Gayathri forever 😘";
-proposal.classList.remove("hidden");
-}else{
-result.innerHTML="Score: "+score+"/10 😂 Hmm… we need serious discussion mister!";
-proposal.classList.add("hidden");
-}
-}
-
-</script>
-
-</body>
-</html>
+<p id="wrongPas
