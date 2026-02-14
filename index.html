@@ -3,90 +3,241 @@
 <head>
 <title>Gayathri’s Forever Quiz 💖</title>
 
+<!-- Fireworks Library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <style>
 body{
-margin:0;
-font-family:Arial;
-background:linear-gradient(to right,#ff9a9e,#fad0c4);
+font-family: Arial;
+background: black;
+color: white;
 text-align:center;
+overflow-x:hidden;
 }
 
-.container{
-background:white;
-padding:25px;
-border-radius:15px;
-max-width:800px;
-margin:40px auto;
-box-shadow:0 0 20px rgba(0,0,0,0.2);
+.question{
+margin:20px;
+padding:15px;
+background:#111;
+border-radius:10px;
 }
 
 button{
 padding:10px 20px;
-margin:15px;
+font-size:16px;
+background:pink;
 border:none;
-border-radius:10px;
-background:#ff4d6d;
-color:white;
-font-size:15px;
+border-radius:8px;
 cursor:pointer;
 }
 
-button:hover{
-background:#e60039;
+.hidden{
+display:none;
 }
 
-.hidden{display:none;}
-
-.progress{
-width:100%;
-background:#ffe6ea;
+#progressBar{
+width:80%;
+height:20px;
+background:#333;
+margin:auto;
 border-radius:10px;
-margin-bottom:20px;
+overflow:hidden;
 }
 
-.progress-bar{
-height:15px;
+#progress{
+height:100%;
 width:0%;
-background:#ff4d6d;
-border-radius:10px;
-transition:0.4s;
+background:hotpink;
 }
 
 .heart{
 position:fixed;
-bottom:-10px;
-font-size:20px;
-animation:floatUp 6s linear infinite;
-color:#ff4d6d;
+color:pink;
+animation: float 6s infinite linear;
 }
 
-@keyframes floatUp{
-0%{transform:translateY(0); opacity:1;}
-100%{transform:translateY(-800px); opacity:0;}
+@keyframes float{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
 }
 
-#proposal{
-font-size:22px;
-color:#e60039;
-animation:fade 1.5s infinite alternate;
+/* Photo fade-in */
+#proposalPhoto{
+opacity:0;
+transition:opacity 2s ease-in-out;
+width:250px;
+border-radius:20px;
+margin-top:20px;
 }
-
-@keyframes fade{
-from{opacity:0.5;}
-to{opacity:1;}
+.showPhoto{
+opacity:1 !important;
 }
 </style>
 </head>
 
 <body>
 
+<h1>Gayathri’s Love Test 💕</h1>
+
+<div id="progressBar">
+<div id="progress"></div>
+</div>
+
+<br>
+
+<div id="quizContainer"></div>
+
+<br>
+<button onclick="submitQuiz()">Submit 💍</button>
+
+<h2 id="result"></h2>
+
+<div id="proposal" class="hidden">
+<h2>💖 WILL YOU MARRY ME? 💖</h2>
+<img id="proposalPhoto" src="YOUR_PHOTO_LINK_HERE">
+</div>
+
+<!-- Romantic Music -->
 <audio id="bgMusic" loop>
 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container" id="loginBox">
-<h2>Enter Password to Unlock Gayathri’s Heart 🔐💖</h2>
-<input type="password" id="password" placeholder="Enter Password">
-<br><br>
-<button onclick="checkPassword()">Unlock 💕</button>
-<p id="wrongPas
+<script>
+
+// 🔐 PASSWORD
+let password=prompt("Enter Secret Password 💖");
+if(password!=="forever"){
+document.body.innerHTML="<h1>Access Denied 😤</h1>";
+}
+
+// QUESTIONS
+let questions=[
+"Where did we first talk?",
+"What nickname do I call you?",
+"Who says sorry first?",
+"Favourite memory of us?",
+"Who is more jealous?",
+"Who loves more?",
+"Dream place together?",
+"Who is dramatic?",
+"What makes me angry?",
+"Who will win arguments?",
+"Who hugs better?",
+"Who misses more?",
+"Who overthinks?",
+"Who is possessive?",
+"Our future kids count?",
+"Who texts first?",
+"Who flirts more?",
+"Who cries first?",
+"Who apologises first?",
+"Who cares more?",
+"Who loves surprises?",
+"Who will cook?",
+"Who will fight for us?",
+"Who is lucky?",
+"Are we forever?"
+];
+
+let correctAnswers=[
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+];
+
+let container=document.getElementById("quizContainer");
+
+questions.forEach((q,index)=>{
+let div=document.createElement("div");
+div.className="question";
+div.innerHTML=`<h3>${q}</h3>
+<label><input type="radio" name="q${index}" value="0" onclick="updateProgress()"> Gayathri is right 💖</label><br>
+<label><input type="radio" name="q${index}" value="1" onclick="updateProgress()"> Boyfriend is right 😏</label>
+`;
+container.appendChild(div);
+});
+
+// Progress bar
+function updateProgress(){
+let answered=0;
+for(let i=0;i<questions.length;i++){
+if(document.querySelector(`input[name="q${i}"]:checked`)){
+answered++;
+}
+}
+let percent=(answered/questions.length)*100;
+document.getElementById("progress").style.width=percent+"%";
+}
+
+// Submit
+function submitQuiz(){
+
+document.getElementById("bgMusic").play();
+
+let name=prompt("Enter your name 😘");
+let score=0;
+
+for(let i=0;i<questions.length;i++){
+let selected=document.querySelector(`input[name="q${i}"]:checked`);
+if(selected && parseInt(selected.value)===correctAnswers[i]){
+score++;
+}
+}
+
+let result=document.getElementById("result");
+let proposal=document.getElementById("proposal");
+let photo=document.getElementById("proposalPhoto");
+
+if(score>=18){
+
+result.innerHTML="Score: "+score+"/25 ❤️ Perfect Match! <br>💍 "+name+", will you stay with Gayathri forever?";
+
+proposal.classList.remove("hidden");
+
+// Fireworks
+var duration = 4 * 1000;
+var end = Date.now() + duration;
+
+(function frame() {
+confetti({
+particleCount: 7,
+angle: 60,
+spread: 55,
+origin: { x: 0 }
+});
+confetti({
+particleCount: 7,
+angle: 120,
+spread: 55,
+origin: { x: 1 }
+});
+if (Date.now() < end) {
+requestAnimationFrame(frame);
+}
+}());
+
+// Photo fade-in
+setTimeout(()=>{
+photo.classList.add("showPhoto");
+},1000);
+
+}else{
+result.innerHTML="Score: "+score+"/25 😂 Mister "+name+"… we need serious discussion tonight!";
+proposal.classList.add("hidden");
+}
+}
+
+// Floating Hearts
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💖";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=Math.random()*20+20+"px";
+document.body.appendChild(heart);
+
+setTimeout(()=>{heart.remove();},6000);
+},800);
+
+</script>
+
+</body>
+</html>
