@@ -3,176 +3,219 @@
 <head>
 <title>Gayathri’s Forever Quiz 💖</title>
 
-<!-- Fireworks Library -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
 <style>
 body{
-font-family: Arial;
-background: black;
-color: white;
+margin:0;
+font-family:Arial;
+background:linear-gradient(to right,#ff9a9e,#fad0c4);
 text-align:center;
-overflow-x:hidden;
 }
 
-.question{
-margin:20px;
-padding:15px;
-background:#111;
-border-radius:10px;
+.container{
+background:white;
+padding:25px;
+border-radius:15px;
+max-width:800px;
+margin:40px auto;
+box-shadow:0 0 20px rgba(0,0,0,0.2);
 }
 
 button{
 padding:10px 20px;
-font-size:16px;
-background:pink;
+margin:15px;
 border:none;
-border-radius:8px;
+border-radius:10px;
+background:#ff4d6d;
+color:white;
+font-size:15px;
 cursor:pointer;
 }
 
-.hidden{
-display:none;
+button:hover{
+background:#e60039;
 }
 
-#progressBar{
-width:80%;
-height:20px;
-background:#333;
-margin:auto;
+.hidden{display:none;}
+
+.progress{
+width:100%;
+background:#ffe6ea;
 border-radius:10px;
-overflow:hidden;
+margin-bottom:20px;
 }
 
-#progress{
-height:100%;
+.progress-bar{
+height:15px;
 width:0%;
-background:hotpink;
+background:#ff4d6d;
+border-radius:10px;
+transition:0.4s;
 }
 
 .heart{
 position:fixed;
-color:pink;
-animation: float 6s infinite linear;
+bottom:-10px;
+font-size:20px;
+animation:floatUp 6s linear infinite;
+color:#ff4d6d;
 }
 
-@keyframes float{
-0%{transform:translateY(100vh);}
-100%{transform:translateY(-10vh);}
+@keyframes floatUp{
+0%{transform:translateY(0); opacity:1;}
+100%{transform:translateY(-800px); opacity:0;}
 }
 
-/* Photo fade-in */
-#proposalPhoto{
-opacity:0;
-transition:opacity 2s ease-in-out;
-width:250px;
-border-radius:20px;
-margin-top:20px;
+#proposal{
+font-size:22px;
+color:#e60039;
+animation:fade 1.5s infinite alternate;
 }
-.showPhoto{
-opacity:1 !important;
+
+@keyframes fade{
+from{opacity:0.5;}
+to{opacity:1;}
 }
 </style>
 </head>
 
 <body>
 
-<h1>Gayathri’s Love Test 💕</h1>
-
-<div id="progressBar">
-<div id="progress"></div>
-</div>
-
-<br>
-
-<div id="quizContainer"></div>
-
-<br>
-<button onclick="submitQuiz()">Submit 💍</button>
-
-<h2 id="result"></h2>
-
-<div id="proposal" class="hidden">
-<h2>💖 WILL YOU MARRY ME? 💖</h2>
-<img id="proposalPhoto" src="YOUR_PHOTO_LINK_HERE">
-</div>
-
-<!-- Romantic Music -->
 <audio id="bgMusic" loop>
 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
+<div class="container" id="loginBox">
+<h2>Enter Password to Unlock Gayathri’s Heart 🔐💖</h2>
+<input type="password" id="password" placeholder="Enter Password">
+<br><br>
+<button onclick="checkPassword()">Unlock 💕</button>
+<p id="wrongPass"></p>
+</div>
+
+<div class="container hidden" id="quizBox">
+
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<h2>Gayathri’s Ultimate Forever Quiz 💍</h2>
+
+<div id="quiz"></div>
+
+<button onclick="submitQuiz()">Submit Answers 💌</button>
+
+<p id="result"></p>
+<p id="proposal" class="hidden">💍 WILL YOU BE MY FOREVER PERSON? ❤️</p>
+
+</div>
+
 <script>
 
-// 🔐 PASSWORD
-let password=prompt("Enter Secret Password 💖");
-if(password!=="forever"){
-document.body.innerHTML="<h1>Access Denied 😤</h1>";
+// 🔐 CHANGE PASSWORD HERE
+const correctPassword = "ilovegayathri";
+
+function checkPassword(){
+let entered=document.getElementById("password").value;
+if(entered===correctPassword){
+document.getElementById("loginBox").classList.add("hidden");
+document.getElementById("quizBox").classList.remove("hidden");
+document.getElementById("bgMusic").play();
+}else{
+document.getElementById("wrongPass").innerHTML="Wrong password 😏 Try again!";
+}
 }
 
-// QUESTIONS
-let questions=[
-"Where did we first talk?",
-"What nickname do I call you?",
-"Who says sorry first?",
-"Favourite memory of us?",
-"Who is more jealous?",
-"Who loves more?",
-"Dream place together?",
-"Who is dramatic?",
-"What makes me angry?",
-"Who will win arguments?",
-"Who hugs better?",
-"Who misses more?",
-"Who overthinks?",
-"Who is possessive?",
-"Our future kids count?",
-"Who texts first?",
-"Who flirts more?",
-"Who cries first?",
-"Who apologises first?",
-"Who cares more?",
-"Who loves surprises?",
-"Who will cook?",
-"Who will fight for us?",
-"Who is lucky?",
-"Are we forever?"
+const questions = [
+"1. Who was interested first?",
+"2. Who said I love you first?",
+"3. Who is more romantic?",
+"4. Who acts childish?",
+"5. Who gets angry first & how do we fix it?",
+"6. Who eats more?",
+"7. How often should intimacy happen?",
+"8. Who is the emotional one?",
+"9. Who is the safest place?",
+"10. Who wins arguments?",
+"11. What motivates you to get married?",
+"12. How do you resolve serious issues?",
+"13. What do you expect from me?",
+"14. Baby first or full family dream?",
+"15. What kind of parent do you want to be?",
+"16. Work balance after kids?",
+"17. Role of parents/in-laws?",
+"18. Dream lifestyle?",
+"19. Where do we want to live?",
+"20. One non-compromise in marriage?",
+"21. How do you handle stress?",
+"22. When you feel unseen, what do you need?",
+"23. Is love alone enough?",
+"24. Freedom vs commitment?",
+"25. How do we fix fights?"
 ];
 
-let correctAnswers=[
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+const options = [
+["You secretly 😏","Me dramatic entry 😘","It was destiny 💫"],
+["You 😌","Me obviously 😎","We both same time 😂"],
+["You filmy hero 💕","Me queen of romance 👑","Both equally cute 😍"],
+["You baby mode 🍼","Me sometimes 🙈","Both when hungry 😂"],
+["You first 😤","Me first 😌","Talk & hug it out 🤗"],
+["You nonstop eating 😋","Me secretly more 🍕","Food wins always 😂"],
+["Everyday romantic vibes 💕","Quality > quantity ❤️","Whenever mood hits 😜"],
+["You cry first 😢","Me overthink queen 😅","Both sensitive souls ❤️"],
+["You are my home 🏡","I am your peace 💞","We are each other’s safe space 🤍"],
+["You loud win 😤","Me silent win 😌","No one…we hug it out 🤗"],
+["Because of you ❤️","Family stability 👨‍👩‍👧","Free food at wedding 😂"],
+["Talk calmly 🧘","Take space then solve 🤝","Argument → hug 🤗"],
+["Loyalty ❤️","Unlimited love 💖","Patience for my drama 😂"],
+["Baby first 👶","Big family chaos 😍","Let’s adopt 10 dogs 🐶"],
+["Cool parent 😎","Strict but loving ❤️","Best friend parent 🤗"],
+["Both work hard 💼","One steps back 👶","Become rich first 💰"],
+["Healthy distance 🏡","Daily involvement 👨‍👩‍👧","Only when needed 🤝"],
+["Quiet peaceful 🌿","Travel adventure ✈️","Luxury rich life 💎"],
+["Near family 🏠","Abroad dream 🌍","Wherever you are 💕"],
+["Self respect 🤍","Career goals 💼","My sleep time 😴"],
+["Communicate 🗣️","Silent mode 🤐","Overthink 100x 😅"],
+["Reassurance 🤗","Tight hug 🫂","Just listen quietly ❤️"],
+["Yes but effort matters 💖","Yes only love enough 😍","Not sure 😬"],
+["Balance both ⚖️","Full commitment ❤️","Freedom with loyalty 🕊️"],
+["Talk it out 🗣️","Cry then hug 😢🤗","Send memes until okay 😂"]
 ];
 
-let container=document.getElementById("quizContainer");
+const correctAnswers = [0,0,0,2,2,0,1,2,2,2,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0];
 
-questions.forEach((q,index)=>{
+let quizDiv=document.getElementById("quiz");
+let progressBar=document.getElementById("progressBar");
+
+questions.forEach((q,i)=>{
 let div=document.createElement("div");
-div.className="question";
-div.innerHTML=`<h3>${q}</h3>
-<label><input type="radio" name="q${index}" value="0" onclick="updateProgress()"> Gayathri is right 💖</label><br>
-<label><input type="radio" name="q${index}" value="1" onclick="updateProgress()"> Boyfriend is right 😏</label>
-`;
-container.appendChild(div);
+div.innerHTML="<p><b>"+q+"</b></p>";
+options[i].forEach((opt,j)=>{
+div.innerHTML+=`<label>
+<input type="radio" name="q${i}" value="${j}"> ${opt}
+</label><br>`;
+});
+quizDiv.appendChild(div);
 });
 
-// Progress bar
-function updateProgress(){
-let answered=0;
-for(let i=0;i<questions.length;i++){
-if(document.querySelector(`input[name="q${i}"]:checked`)){
-answered++;
-}
-}
-let percent=(answered/questions.length)*100;
-document.getElementById("progress").style.width=percent+"%";
-}
+document.addEventListener("change",()=>{
+let answered=document.querySelectorAll("input[type=radio]:checked").length;
+progressBar.style.width=(answered/questions.length)*100+"%";
+});
 
-// Submit
+// Floating hearts
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"%";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},800);
+
 function submitQuiz(){
 
-document.getElementById("bgMusic").play();
-
-let name=prompt("Enter your name 😘");
+let name = prompt("Enter your name 😘");
 let score=0;
 
 for(let i=0;i<questions.length;i++){
@@ -184,58 +227,16 @@ score++;
 
 let result=document.getElementById("result");
 let proposal=document.getElementById("proposal");
-let photo=document.getElementById("proposalPhoto");
 
 if(score>=18){
-
-result.innerHTML="Score: "+score+"/25 ❤️ Perfect Match! <br>💍 "+name+", will you stay with Gayathri forever?";
-
+result.innerHTML="Score: "+score+"/25 ❤️ Perfect match! <br><br>💍 "+name+", will you stay with Gayathri forever? 😘💕";
 proposal.classList.remove("hidden");
-
-// Fireworks
-var duration = 4 * 1000;
-var end = Date.now() + duration;
-
-(function frame() {
-confetti({
-particleCount: 7,
-angle: 60,
-spread: 55,
-origin: { x: 0 }
-});
-confetti({
-particleCount: 7,
-angle: 120,
-spread: 55,
-origin: { x: 1 }
-});
-if (Date.now() < end) {
-requestAnimationFrame(frame);
-}
-}());
-
-// Photo fade-in
-setTimeout(()=>{
-photo.classList.add("showPhoto");
-},1000);
-
 }else{
 result.innerHTML="Score: "+score+"/25 😂 Mister "+name+"… we need serious discussion tonight!";
 proposal.classList.add("hidden");
 }
+
 }
-
-// Floating Hearts
-setInterval(()=>{
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="💖";
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=Math.random()*20+20+"px";
-document.body.appendChild(heart);
-
-setTimeout(()=>{heart.remove();},6000);
-},800);
 
 </script>
 
